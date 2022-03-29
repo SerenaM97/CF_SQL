@@ -1,0 +1,27 @@
+SELECT film_id, title, description
+  FROM film
+  WHERE title LIKE '%Uptown%';
+SELECT film_id, title, length, rental_rate, description
+  FROM film
+  WHERE length > 120 AND rental_rate > 2.99
+  ORDER BY length, rental_rate;
+SELECT film_id, title, rental_duration
+  FROM film
+  WHERE rental_duration > 3 AND rental_duration < 7
+  ORDER BY rental_duration;
+SELECT film_id, title, replacement_cost
+  FROM film
+  WHERE replacement_cost < 14.99
+  ORDER BY replacement_cost;
+SELECT film_id, title, rating
+  FROM film
+  WHERE rating IN ('PG', 'G')
+  ORDER BY rating;
+SELECT rating, COUNT(film_id) AS count_of_movies
+  FROM film
+  WHERE rating IN ('PG', 'G')
+  GROUP BY rating;
+SELECT rating, AVG(rental_rate) AS av_rental_rate
+  FROM film
+  WHERE rating IN ('PG', 'G')
+  GROUP BY rating;
