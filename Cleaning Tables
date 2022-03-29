@@ -1,0 +1,42 @@
+Duplicate check: film table
+SELECT title, release_year,language_id, rental_duration, COUNT(*)
+  FROM film
+  GROUP BY title,
+  release_year, language_id, rental_duration
+  HAVING COUNT(*) >1;
+Check for non-uniform data: film table
+SELECT rating
+  FROM film
+  GROUP BY rating;
+  SELECT title, release_year
+  FROM film
+  GROUP BY title, release_year;
+Search for missing data: film table
+SELECT COUNT (title) AS count_title,
+  COUNT (release_year) AS count_release_year,
+  COUNT (language_id) AS count_language_id,
+  COUNT (rental_duration) AS count_rental_duration,
+  COUNT(*) AS count_rows
+  FROM film;
+Duplicate check: customer table
+SELECT title, release_year,language_id, rental_duration, COUNT(*)
+  FROM film
+  GROUP BY title,
+  release_year, language_id, rental_duration
+  HAVING COUNT(*) >1;
+Check for non-uniform data: customer table
+SELECT DISTINCT customer_id, first_name, last_name, address_id
+  FROM customer;
+Check for missing data: customer table
+SELECT COUNT (customer_id) AS count_customer_id,
+  COUNT (first_name) AS count_first_name,
+  COUNT (last_name) AS count_last_name,
+  COUNT (address_id) AS count_address_id,
+  COUNT(*) AS count_rows
+  FROM customer;
+***Film Table- no duplicates were found and all columns were uniform.
+Customer Table- no duplicates were found and all columns were uniform.
+If duplicates had been present, it would have been the best course of actions to use a VIEW command in
+SQL (to prevent making permanent changes prematurely,) and then use the GROUP BY command to
+isolate unique records and then delete the duplicates. Alternatively, I could use the DISTINCT command
+to eliminate duplicates, thus leaving only the unique records in the data.***
