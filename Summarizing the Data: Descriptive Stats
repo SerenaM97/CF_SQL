@@ -1,0 +1,23 @@
+Film: Numerical
+SELECT MIN(rental_duration) AS min_rental_duration,
+  MAX(rental_duration) AS max_rental_duration,
+  AVG(rental_duration) AS avg_rental_duration,
+  MIN(rental_rate) AS min_rental_rate,
+  MAX(rental_rate) AS max_rental_rate,
+  AVG(rental_rate) AS avg_rental_rate,
+  MIN(replacement_cost) AS min_rep_cost,
+  MAX(replacement_cost) AS max_rep_cost,
+  AVG(replacement_cost) AS avg_rep_cost
+FROM film;
+Film: non-Numerical
+SELECT mode () WITHIN GROUP (ORDER BY title) AS mode_title,
+  mode () WITHIN GROUP (ORDER BY description) AS mode_description,
+  mode () WITHIN GROUP (ORDER BY language_id) AS mod_language_id,
+  mode () WITHIN GROUP (ORDER BY rating) AS mode_rating
+FROM film;
+Customer: non-numerical
+SELECT mode () WITHIN GROUP (ORDER BY customer_id) AS mode_customer_id,
+  mode () WITHIN GROUP (ORDER BY first_name) AS mode_first_name,
+  mode () WITHIN GROUP (ORDER BY last_name) AS mode_last_name,
+  mode () WITHIN GROUP (ORDER BY address_id) AS mode_address_id
+FROM customer;
