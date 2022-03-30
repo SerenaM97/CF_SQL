@@ -1,0 +1,95 @@
+SELECT
+  D.country,
+  COUNT (customer_id) AS number_of_customers
+FROM customer A
+  INNER JOIN address B ON A.address_id = B. address_id
+  INNER JOIN city C ON B.city_id = C.city_id
+  INNER JOIN country D ON C.country_id = D.country_id
+  GROUP BY country
+  ORDER BY number_of_customers DESC
+LIMIT 10;
+*** multiple inner joins were used here in order to get from data from the customer table, to the address table, to the city table, and finally to the country table,
+in order to get the count of customers by country. This count was done for the top 10 countries.***
+SELECT
+  D.country,
+  C.city,
+  COUNT (customer_id) AS number_of_customers
+FROM customer A
+  INNER JOIN address B ON A.address_id = B. address_id
+  INNER JOIN city C ON B.city_id = C.city_id
+  INNER JOIN country D ON C.country_id = D.country_id
+WHERE country IN
+(
+'India',
+'China',
+'United States',
+'Japan',
+'Mexico',
+'Brazil',
+'Russian Federation',
+'Philippines',
+'Turkey',
+'Indonesia'
+)
+GROUP BY city,country
+ORDER BY number_of_customers DESC
+LIMIT 10;
+***This query used the previous query as a base, but added on a WHERE statement to provide the customer count by top 10 cities in the top 10 countries.***
+SELECT
+  A.customer_id,
+  B.first_name,
+  B.last_name,
+  D.city,
+  E.country,
+SUM(amount) AS total_amount_paid_by_customer
+FROM payment A
+INNER JOIN customer B ON A.customer_id = B.customer_id
+INNER JOIN address C ON B.address_id = C.address_id
+country city number_of_customers
+United States Aurora 2
+Mexico Atlixco 1
+China Xintai 1
+India Adoni 1
+India Dhule (Dhulia) 1
+Japan Kurashiki 1
+China Pingxiang 1
+Turkey Sivas 1
+Mexico Celaya 1
+Brazil So Leopoldo 1
+INNER JOIN city D ON C.city_id = D.city_id
+INNER JOIN country E on D.country_id = E.country_id
+WHERE E.country IN
+(
+'India',
+'China',
+'United States',
+'Japan',
+'Mexico',
+'Brazil',
+'Russian Federation',
+'Philippines',
+'Turkey',
+'Indonesia'
+)
+AND D.city IN
+(
+'Aurora',
+'Atlixco',
+'Xintai',
+'Adoni',
+'Dhule (Dhulia)',
+'Kurashiki',
+'Pingxiang',
+'Sivas',
+'Celaya',
+'So Leopoldo'
+)
+GROUP BY
+A.customer_id,
+B.first_name,
+B.last_name,
+D.city,
+E.country
+ORDER BY total_amount_paid_by_customer DESC
+LIMIT 5;
+***This join generated the top 5 paying customers out of the top countries and cities.***
